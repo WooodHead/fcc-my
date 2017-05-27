@@ -1,18 +1,13 @@
-var less = require('gulp-less');
+var gulp = require('gulp'),
+    bower = require('bower-main-files'), 
+    inject = require('gulp-inject');
 
-var paths = {
-  lessFiles: ['public/css/*.less'],
-  css:'public/css'
-};
-
-gulp.task('less', function () {
-  return gulp.src(paths.lessFiles)
-  .pipe(less(
-    [path.join(__dirname,'less','')]
-  ))
+gulp.task('inject', function() {
+  gulp.src('views/home.jade')
+    .pipe(inject(gulp.src(bower()), {
+      //ignorePath: '/public'
+    }))
+    .pipe(gulp.dest('views'));
 });
 
 
-gulp.task('watch', function () {
-  gulp.watch(paths.lessFiles, ['less']);
-});

@@ -1,7 +1,10 @@
-var message =
-  'Learn to Code JavaScript and get a Coding Job by Helping Nonprofits';
+/**
+ * GET /
+ * Home page.
+ */
 
-
-exports.index = function (req, res, next) {
-  res.render('home', { title: message });
-}
+exports.index = function(req, res) {
+  res.render('home', {
+    title: 'Home'
+  });
+};

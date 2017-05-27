@@ -1,6 +1,9 @@
 doctype html
 html
   head
-    include partials/universal-head
+  != css('styles')
   body
-    block content
+    .container
+      block content
+
+    != js('application')
