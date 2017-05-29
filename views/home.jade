@@ -1,25 +1,27 @@
 extends layout
 block content
-    .text-center
+    .text-center.jumbotron
         h1 Become a Software Engineer
         h2 Our free online coding bootcamp will help you land your first coding job!
         
         .row
             .col-xs-12.col-sm-12.col-md-4
                 h3 Technical Mastery
-                img(src="images/tools.svg")
+                img.three-by-three(src="images/tools.svg")
                 p Pair program your way through our courses and coding challenges.
 
             .col-xs-12.col-sm-12.col-md-4        
                 h3 Unique Portfolio Projects
-                img(src="images/portfolio.svg")    
+                img.three-by-three(src="images/portfolio.svg")    
                 p Contribute to Open Source Software. Work closely with non-profits and solve their problems with code.
 
             .col-xs-12.col-sm-12.col-md-4
                 h3 Glowing References
-                img(src="images/references.svg")    
+                img.three-by-three(src="images/references.svg")    
                 p Gain the esteem of your peers and the people you help.
 
-        a.btn.btn-primary(href='/login') Sign in now to get started (it's free)
-        a.btn.btn-primary(href='/nonprofit') I'm with a non-profit and want help from a Software Engineer
+        p
+            a.btn.btn-primary.btn-cta(href='/login') Sign in now to get started (it's free)
+        p
+            a.btn.btn-primary(href='/nonprofit') I'm with a non-profit and want help from a Software Engineer
         

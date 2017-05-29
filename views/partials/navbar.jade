@@ -7,29 +7,12 @@
         span.icon-bar
         span.icon-bar
       a.navbar-brand(href='/')
-        span
-        img.navbar-icon(src= "images/fire.svg")
+        img.navbar-icon(src='images/fire.svg')
         | Free Code Camp
-    .collapse.navbar-collapse
+
+    .collapse.navbar-collapse  
       ul.nav.navbar-nav.navbar-right
         if !user
           a.btn.btn-primary.btn-nav.btn-sm(href='/login') Sign in with LinkedIn
         else
-          li.dropdown(class=title=='Account Management'?'active':undefined)
-            a.dropdown-toggle(href='#', data-toggle='dropdown')
-              if user.profile.picture
-                img(src='#{user.profile.picture}')
-              else
-                img(src='#{user.gravatar(60)}')
-              | #{user.profile.name || user.email || user.id}&nbsp;
-              i.caret
-            ul.dropdown-menu
-              li
-                a(href='/account')
-                  span.ion-person
-                  | My Account
-              li.divider
-              li
-                a(href='/logout')
-                  span.ion-log-out
-                  |  Logout
+          li test
