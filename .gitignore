@@ -7,7 +7,11 @@ lib-cov
 *.pid
 *.gz
 *.swp
+.floo
+.flooignore
+builtAssets/
 
+*.env
 pids
 logs
 results
@@ -19,3 +23,8 @@ node_modules
 *.iml
 .DS_Store
 Thumbs.db
+bower_components
+.eslintignore
+.eslintrc
+main.css
+bundle.js
