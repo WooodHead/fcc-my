@@ -2,23 +2,23 @@ extends ../layout
 
 block content
   .page-header
-    h3 Signup
-
-  form.form-horizontal(id='signup-form',method='POST')
+    h3 Sign up
+  form.form-horizontal(id='signup-form', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
     .form-group
       label.col-sm-3.control-label(for='email') Email
       .col-sm-7
-        input.form-control(type='email', name='email', placeholder='Email', autofocus=true,value='jcwsw129@gmail.com')
+        input.form-control(type='email', name='email', id='email', placeholder='Email', autofocus,value='jcwsw129@gmail.com')
     .form-group
       label.col-sm-3.control-label(for='password') Password
       .col-sm-7
-        input.form-control(type='password',name='password', placeholder='Password',value='admin123')
+        input.form-control(type='password', name='password', id='password', placeholder='Password',value='admin123')
     .form-group
       label.col-sm-3.control-label(for='confirmPassword') Confirm Password
       .col-sm-7
-        input.form-control(type='password',name='confirmPassword',, placeholder='Confirm Password',value='admin123')
+        input.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password',value='admin123')
     .form-group
-      .col-sm-7.col-sm-offset-3
-        button.btn.btn-primary(type='submit') Signup
-
-  
+      .col-sm-offset-3.col-sm-7
+        button.btn.btn-success(type='submit')
+          span.ion-person-add
+          | Signup
