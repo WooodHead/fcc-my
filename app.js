@@ -6,13 +6,9 @@ var express = require('express'),
   mongoose = require('mongoose');
 
 var lessMiddleware = require('less-middleware');
-/**
- * Controllers (route handlers).
- */
-var homeController = require('./controllers/home'),
 
-  secrets = require('./config/secrets'),
-  passportConf = require('./config/passport');
+
+var homeController = require('./controllers/home');
 
 
 var app = express();
@@ -35,48 +31,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(lessMiddleware(__dirname + '/public',
   { render: { compress: false } }));
+
 app.use(express.static(__dirname + '/public', { maxAge: 86400000 }));
 
 
 app.get('/', homeController.index);
-/**
- * 500 Error Handler.
- */
-if (process.env.NODE_ENV === 'development') {
-  app.use(errorHandler({ log: true }));
-} else {
-  // error handling in production
-  app.use(function (err, req, res, next) {
 
-    // respect err.status
-    if (err.status) {
-      res.statusCode = err.status;
-    }
 
-    // default status code to 500
-    if (res.statusCode < 400) {
-      res.statusCode = 500;
-    }
 
-    var message = 'opps! Something went wrong. Please try again later';
-    if (type === 'html') {
-      req.flash('errors', { msg: message });
-      return res.redirect('/');
-      // json
-    } else if (type === 'json') {
-      res.setHeader('Content-Type', 'application/json');
-      return res.send({ message: message });
-      // plain text
-    } else {
-      res.setHeader('Content-Type', 'text/plain');
-      return res.send(message);
-    }
-  });
-}
-
-/**
- * Start Express server.
- */
+app.use(function (err, req, res, next) {
+  res.send(err);
+});
 
 app.listen(app.get('port'), function () {
   console.log(
