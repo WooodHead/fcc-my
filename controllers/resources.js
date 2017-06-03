@@ -168,6 +168,7 @@ module.exports = {
               }
             });
         },
+        
         stories: function (callback) {
           Story.aggregate()
             .group({_id: 1, links: {$addToSet: '$link'}})

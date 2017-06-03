@@ -25,15 +25,18 @@ nav.navbar.navbar-default.navbar-fixed-top.nav-height
                 li
                     a(href='/challenges/waypoint-join-our-chat-room') Chat
             li
+                a(href='/words') 单词
+            li
                 a(href='/news') News
             li
                 a(href='/field-guide') Guide
             li.hidden-xs.hidden-sm
                 a(href='/jobs') Jobs
+
             if !user
                 li &thinsp; &thinsp; &thinsp;
                 li
-                    a.btn.signup-btn.signup-btn-nav(href='/login') Sign in
+                    a.btn.signup-btn.signup-btn-nav(href='/login') 登录 | 注册
             else
                 li
                     if (user.profile.username)

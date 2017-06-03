@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    include ../partials/universal-head
+    link(rel='stylesheet',href='screen.css')
+  body.top-and-bottom-margins
+    include ../partials/navbar
+    .container
+      include ../partials/flash
+      block content
+    include ../partials/footer
