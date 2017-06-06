@@ -73,13 +73,23 @@ var Word = require('./../models/Word');
 
 router.get('/api/words', function (req, res) {
 
-  Word.find({}, function (err, words) {
-    if (err) {
-      return next(err);
-    }
-    res.json(words);
+  Word.find()
+    .limit(10)
+    .skip(10 * 1)
+    .sort({
+      word: 'asc'
+    })
+    .exec(function (err, words) {
+      res.json(words);
+    });
 
-  });
+  // Word.find({}, function (err, words) {
+  //   if (err) {
+  //     return next(err);
+  //   }
+  //   res.json(words);
+  // });
+
 });
 
 module.exports = router;

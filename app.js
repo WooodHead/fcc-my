@@ -60,6 +60,7 @@ var indexRoutes = require('./routes/index');
 var wordsRoutes = require('./routes/words');
 var accountRoutes = require('./routes/account');
 var apiRoutes = require('./routes/api');
+var paginationRoutes = require('./routes/pagination');
 
 var app = express();
 
@@ -130,6 +131,7 @@ app.use(function (req, res, next) {
 });
 
 app.use(express.static(__dirname + '/public', { maxAge: 86400000 }));
+app.use(express.static(__dirname + '/pagination/demo', { maxAge: 86400000 }));
 
 app.use(function (req, res, next) {
   // Remember original destination before login.
@@ -151,6 +153,7 @@ app.use('/words', wordsRoutes);
 app.use('/account', accountRoutes);
 
 app.use('/', apiRoutes);
+app.use('/pagination', paginationRoutes);
 
 // put this route last
 app.get(

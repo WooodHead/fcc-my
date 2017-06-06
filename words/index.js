@@ -10,7 +10,7 @@ fs.readFile('gre.txt', 'utf-8', function (err, data) {
     };
     list.push(word);
   }
-  console.log(list[0]);
+  // console.log(list[0]);
   var content = JSON.stringify(list);
   fs.writeFile('words-list.txt', content, function (err) {
     if (err) console.log(err);

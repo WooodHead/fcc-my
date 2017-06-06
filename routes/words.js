@@ -20,43 +20,54 @@ router.get('/', function (req, res, next) {
   // var html = ServerDOM.renderToStaticMarkup(React.createElement(testReact));
   // res.status(200).send("<!doctype html>" + html);
 
-  Word.find({}, function (err, words) {
-    if (err) { return next(err); }
+  Word.find().limit(10).skip(10 * 1).sort({
+      word: 'asc'
+    })
+    .exec(function (err, words) {
+      res.render('words/learn', {
+        words: words
+      });
+    })
 
-    res.render('words/learn', {
-      words: words
-    });
-
-  });
-
-  // res.render('words/learn', { activeTab: 'learn' });
 });
 
 router.get('/learn', function (req, res, next) {
-  res.render('words/learn', { activeTab: 'learn' });
+  res.render('words/learn', {
+    activeTab: 'learn'
+  });
 });
 
 
 router.get('/extension', function (req, res, next) {
-  res.render('words/extension', { activeTab: 'extension' });
+  res.render('words/extension', {
+    activeTab: 'extension'
+  });
 });
 
 router.get('/books', function (req, res, next) {
-  res.render('words/books', { activeTab: 'books' });
+  res.render('words/books', {
+    activeTab: 'books'
+  });
 });
 
 router.get('/library', function (req, res, next) {
-  res.render('words/library', { activeTab: 'library' });
+  res.render('words/library', {
+    activeTab: 'library'
+  });
 });
 
 router.get('/test', function (req, res, next) {
-  res.render('words/test', { activeTab: 'test' });
+  res.render('words/test', {
+    activeTab: 'test'
+  });
 
 });
 
 
 router.get('/settings', function (req, res, next) {
-  res.render('words/settings', { activeTab: 'settings' });
+  res.render('words/settings', {
+    activeTab: 'settings'
+  });
 });
 
 

@@ -18,7 +18,7 @@ var Plugin = React.createClass({
         // console.log(this.props.word);
 
         return <li className="plugin visited">
-            <a href="/plugin/fugitive-vim">
+            <a href="#">
                 <h3 className="plugin-name integration">
                     {this.props.word.word}
                 </h3>

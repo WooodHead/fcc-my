@@ -84,6 +84,7 @@
     "ramda": "~0.10.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-paginate": "^4.4.2",
     "reactify": "^1.1.1",
     "request": "~2.53.0",
     "sanitize-html": "~1.6.1",
