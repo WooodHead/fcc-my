@@ -60,7 +60,6 @@ var indexRoutes = require('./routes/index');
 var wordsRoutes = require('./routes/words');
 var accountRoutes = require('./routes/account');
 var apiRoutes = require('./routes/api');
-var paginationRoutes = require('./routes/pagination');
 
 var app = express();
 
@@ -85,10 +84,14 @@ app.set('view engine', 'jade');
 
 
 app.use(compress());
-app.use(lessMiddleware(__dirname + '/public', { compress: false }));
+app.use(lessMiddleware(__dirname + '/public', {
+  compress: false
+}));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(expressValidator({
   customValidators: {
     matchRegex: function (param, regex) {
@@ -130,8 +133,10 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(express.static(__dirname + '/public', { maxAge: 86400000 }));
-app.use(express.static(__dirname + '/pagination/demo', { maxAge: 86400000 }));
+app.use(express.static(__dirname + '/public', {
+  maxAge: 86400000
+}));
+// app.use(express.static(__dirname + '/pagination/demo', { maxAge: 86400000 }));
 
 app.use(function (req, res, next) {
   // Remember original destination before login.
@@ -153,7 +158,7 @@ app.use('/words', wordsRoutes);
 app.use('/account', accountRoutes);
 
 app.use('/', apiRoutes);
-app.use('/pagination', paginationRoutes);
+
 
 // put this route last
 app.get(
@@ -162,11 +167,16 @@ app.get(
 );
 
 
+
+
+
 /**
  * 500 Error Handler.
  */
 if (process.env.NODE_ENV === 'development') {
-  app.use(errorHandler({ log: true }));
+  app.use(errorHandler({
+    log: true
+  }));
 } else {
   // error handling in production
   app.use(function (err, req, res, next) {
@@ -187,12 +197,16 @@ if (process.env.NODE_ENV === 'development') {
 
     var message = 'opps! Something went wrong. Please try again later';
     if (type === 'html') {
-      req.flash('errors', { msg: message });
+      req.flash('errors', {
+        msg: message
+      });
       return res.redirect('/');
       // json
     } else if (type === 'json') {
       res.setHeader('Content-Type', 'application/json');
-      return res.send({ message: message });
+      return res.send({
+        message: message
+      });
       // plain text
     } else {
       res.setHeader('Content-Type', 'text/plain');
