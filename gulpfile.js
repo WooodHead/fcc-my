@@ -91,6 +91,17 @@ gulp.task("bundle", function () {
         .pipe(gulp.dest("public"))
 });
 
+gulp.task("SchoolFinder", function () {
+    return browserify({
+        entries: "./app/SchoolFinder.jsx",
+        // extensions:"jsx",
+        debug: true
+    }).transform(reactify)
+        .bundle()
+        .pipe(source("SchoolFinder.js"))
+        .pipe(gulp.dest("public"))
+});
+
 gulp.task("copy", ["bundle"], function () {
     return gulp.src(["app/lib/bootstrap-css/css/bootstrap.min.css", "app/style.css"])
         .pipe(gulp.dest("public"));
@@ -118,8 +129,9 @@ gulp.task("copy", ["bundle"], function () {
 
 gulp.task('watch', function () {
     gulp.watch('app/main.jsx', ['bundle']);
+    gulp.watch('app/**/*.jsx', ['SchoolFinder']);
     // gulp.watch('app/sass/*.scss', ['scss']);
 });
 
 
-gulp.task('default', ['serve', 'sync', 'copy', 'watch']);
+gulp.task('default', ['serve', 'sync', 'copy', 'SchoolFinder','watch']);

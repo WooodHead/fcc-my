@@ -160,6 +160,11 @@ app.use('/account', accountRoutes);
 app.use('/', apiRoutes);
 
 
+app.get('/schoolfinder', function (req, res) {
+  res.sendFile(path.join(__dirname,'/app/index.html'));
+});
+
+
 // put this route last
 app.get(
   '/:username',

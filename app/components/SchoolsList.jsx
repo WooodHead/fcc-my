@@ -1,25 +1,16 @@
-var React = require("react");
-var SchoolInfo = require("./SchoolInfo.jsx")
-var AddSchool = require("./AddSchool.jsx");
+var React = require('react');
+var reactDOM = require('react-dom');
+var AddSchool = require('./AddSchool.jsx');
 
-module.exports = React.createClass({
-   render:function(){
-       return(
-           <div className="row">
-               <h1>test3344</h1>
-                <div className="col-md-6">
-                    <AddSchool />
-                </div>
-                <div className="col-md-6">
-                    {
-                        this.props.schools.map(function(s,index){
-                            return(
-                                <SchoolInfo info={s} key={"school"+index} />
-                            )         
-                        })
-                    }
-                </div>
-           </div>
-       )
-   } 
+var SchoolsList = React.createClass({
+    render: function () {
+        return (
+            <div>
+                <h1>test2</h1>
+                <AddSchool />
+            </div>
+        );
+    }
 });
+
+module.exports = SchoolsList;
