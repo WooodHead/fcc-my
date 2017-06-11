@@ -1,17 +1,20 @@
-var gulp = require('gulp'),
-    debug = require('debug')('freecc:gulp'),
-    bower = require('bower-main-files'),
-    nodemon = require('gulp-nodemon'),
-    sync = require('browser-sync'),
-    reload = sync.reload,
-    inject = require('gulp-inject'),
-    reloadDelay = 1000,
-    eslint = require('gulp-eslint');
+var gulp = require('gulp');
+var debug = require('debug')('freecc:gulp');
+var bower = require('bower-main-files');
+var nodemon = require('gulp-nodemon');
+var sync = require('browser-sync');
+var reload = sync.reload;
+var inject = require('gulp-inject');
+var reloadDelay = 1000;
+var eslint = require('gulp-eslint');
+
+var babelify = require('babelify');
 
 const bourbon = require("bourbon");
 const neat = require("bourbon-neat");
 
 var sass = require('gulp-sass');
+var scss = require('gulp-scss');
 
 
 var paths = {
@@ -30,14 +33,14 @@ gulp.task('inject', function () {
 gulp.task('serve', function (cb) {
     var called = false;
     nodemon({
-        script: paths.server,
-        ext: '.js',
-        ignore: paths.serverIgnore,
-        env: {
-            'NODE_ENV': 'development',
-            'DEBUG': 'freecc:*'
-        }
-    })
+            script: paths.server,
+            ext: '.js',
+            ignore: paths.serverIgnore,
+            env: {
+                'NODE_ENV': 'development',
+                'DEBUG': 'freecc:*'
+            }
+        })
         .on('start', function () {
             if (!called) {
                 called = true;
@@ -83,9 +86,9 @@ var source = require("vinyl-source-stream");
 
 gulp.task("bundle", function () {
     return browserify({
-        entries: "./app/main.jsx",
-        debug: true
-    }).transform(reactify)
+            entries: "./app/main.jsx"
+            // debug: true
+        }).transform(reactify)
         .bundle()
         .pipe(source("main.js"))
         .pipe(gulp.dest("public"))
@@ -93,12 +96,25 @@ gulp.task("bundle", function () {
 
 gulp.task("SchoolFinder", function () {
     return browserify({
-        entries: "./app/SchoolFinder.jsx",
-        // extensions:"jsx",
-        debug: true
-    }).transform(reactify)
+            entries: "./app/SchoolFinder.jsx"
+            // debug: true
+        }).transform(reactify)
         .bundle()
         .pipe(source("SchoolFinder.js"))
+        .pipe(gulp.dest("public"))
+});
+
+gulp.task("dataTable", function () {
+    return browserify({
+            entries: "./dataTable/dataTable.jsx"
+            // debug: true
+        })
+        .transform("babelify", {
+            presets: ["es2015", "react"]
+        })
+        .transform(reactify)
+        .bundle()
+        .pipe(source("dataTable.js"))
         .pipe(gulp.dest("public"))
 });
 
@@ -115,23 +131,25 @@ gulp.task("copy", ["bundle"], function () {
 //     )).pipe(gulp.dest("public/screen.css"));
 // });
 
-// gulp.task('scss', function () {
-//     gulp.src(
-//         "client/sass/*.scss")
-//         .pipe(sass({
-//             includePaths:
-//             //  ['client/sass']
-//             [neat.includePaths,
-//             bourbon.includePaths]
-//         }).on('error', sass.logError))
-//         .pipe(gulp.dest('public/screen.css'));
-// });
+gulp.task("dataTable-scss", function () {
+    gulp.src(
+        "dataTable/**/*.scss"
+    ).pipe(scss({
+        "bundleExec": true
+    })).pipe(gulp.dest("dataTable.css"));
+});
+
 
 gulp.task('watch', function () {
     gulp.watch('app/main.jsx', ['bundle']);
     gulp.watch('app/**/*.jsx', ['SchoolFinder']);
+    gulp.watch('app/**/*.js', ['SchoolFinder']);
+    gulp.watch('dataTable/**/*.jsx', ['dataTable']);
+    gulp.watch('dataTable/**/*.js', ['dataTable']);
+    gulp.watch('dataTable/**/*.scss', ['dataTable-scss']);
+
     // gulp.watch('app/sass/*.scss', ['scss']);
 });
 
 
-gulp.task('default', ['serve', 'sync', 'copy', 'SchoolFinder','watch']);
+gulp.task('default', ['serve', 'sync', 'copy', 'SchoolFinder', 'dataTable', 'dataTable-scss', 'watch']);

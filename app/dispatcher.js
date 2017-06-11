@@ -1,10 +1,12 @@
-var Guid = require("guid");
+var Guid = require('guid');
 
 var listeners = {};
 
 function dispatch(payload) {
+    console.log('payload',payload);
+    console.log('listeners',listeners);
     for (var id in listeners) {
-        listeners[id](payload);
+        listeners[id](payload)
     }
 }
 
@@ -16,4 +18,4 @@ function register(cb) {
 module.exports = {
     register: register,
     dispatch: dispatch
-}
+};

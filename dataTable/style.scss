@@ -1,0 +1,22 @@
+.table-datatable {
+  .thead-default {
+    .thead-tr-default {
+      .thead-th-default {
+        &.sortable { // If and only if a column is sortable
+          &:hover {
+            background: #A7FAE8; // Your color of choice
+            cursor: pointer; // Changes the cursor into a pointer on hover
+          }
+        }
+      }
+    }
+  }
+
+  .tbody-default {
+    .tbody-tr-default {
+      .tbody-td-default {
+        // do what you want
+      }
+    }
+  }
+}

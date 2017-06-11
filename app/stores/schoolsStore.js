@@ -1,10 +1,20 @@
-var dispatcher = require("../dispatcher");
+var dispatcher = require('../dispatcher');
 
 function SchoolStore() {
     var listeners = [];
-    var schools = [{ name: "Lovedale", tagline:"A wonderful school" }, 
-                    { name: "Bishop",tagline:"An awesome school" }, 
-                    { name: "Daffodils", tagline:"An excellent school" }];
+    var schools = [{
+            name: "Lovedale",
+            tagline: "A wonderful school"
+        },
+        {
+            name: "Bishop",
+            tagline: "An awesome school"
+        },
+        {
+            name: "Daffodils",
+            tagline: "An excellent school"
+        }
+    ];
 
     function getSchools() {
         return schools;
@@ -15,19 +25,21 @@ function SchoolStore() {
     }
 
     function addSchool(school) {
-        schools.push(school)
+        schools.push(school);
         triggerListeners();
+
     }
 
-    function deleteSchool(school) {
+    function deleteSchool() {
         var _index;
-        schools.map(function (s, index) {
+        school.map(function (s, _index) {
             if (s.name === school.name) {
                 _index = index;
             }
+
+            schools.splice(_index, 1);
+            triggerListeners();
         });
-        schools.splice(_index, 1);
-        triggerListeners();
     }
 
     function triggerListeners() {
@@ -36,9 +48,12 @@ function SchoolStore() {
         });
     }
 
-    dispatcher.register(function (payload) {
+
+
+    function handler(payload) {
+
         var split = payload.type.split(":");
-        if (split[0] === "school") {
+        if (split[0] === 'school') {
             switch (split[1]) {
                 case "addSchool":
                     addSchool(payload.school);
@@ -48,12 +63,16 @@ function SchoolStore() {
                     break;
             }
         }
-    });
+    }
+
+
+    dispatcher.register(handler);
 
     return {
         getSchools: getSchools,
         onChange: onChange
-    }
+    };
+
 }
 
 module.exports = SchoolStore();

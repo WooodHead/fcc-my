@@ -161,9 +161,12 @@ app.use('/', apiRoutes);
 
 
 app.get('/schoolfinder', function (req, res) {
-  res.sendFile(path.join(__dirname,'/app/index.html'));
+  res.sendFile(path.join(__dirname, '/app/index.html'));
 });
 
+app.get('/dataTable', function (req, res) {
+  res.render('dataTable');
+});
 
 // put this route last
 app.get(

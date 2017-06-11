@@ -1,16 +1,19 @@
-var dispatcher = require("../dispatcher");
+var dispatcher = require('../dispatcher');
 
 module.exports = {
-    addSchool:function(school){
+
+    addSchool: function (school) {
         dispatcher.dispatch({
-           school:school,
-           type:"school:addSchool" 
+            school: school,
+            type: "school:addSchool"
         });
     },
-    deleteSchool:function(school){
+
+    deleteSchool: function (school) {
         dispatcher.dispatch({
-           school:school,
-           type:"school:deleteSchool" 
+            school: school,
+            type: "school:deleteSchool"
         });
-    }
-}
+    },
+
+};
